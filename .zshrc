@@ -65,16 +65,22 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+# Variables
+bat='batcat'
+theme='Catppuccin Mocha'
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -F -A --icons --color=always --group-directories-first $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -F -A --icons --color=always --group-directories-first $realpath'
-
-# Variables
-bat='batcat'
-theme='Catppuccin Mocha'
+zstyle ':fzf-tab:complete:nvim:*' fzf-preview '\
+if [[ -d "$realpath" ]]; then \
+  eza -F -A --icons --color=always --group-directories-first "$realpath"; \
+else \
+  '"${bat}"' --theme="'"${theme}"'" --color=always "$realpath"; \
+fi'
 
 # Aliases
 alias ls='ls --color'

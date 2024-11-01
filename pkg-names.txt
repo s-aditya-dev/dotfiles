@@ -1,0 +1,1 @@
+stow,kitty,nvim,zsh,bat,fzf,zoxide,oh-my-posh,eza,
