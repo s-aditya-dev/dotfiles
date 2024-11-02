@@ -11,7 +11,7 @@ local plugins = {
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
-    end
+    end,
   },
   {
     "williamboman/mason.nvim",
@@ -20,17 +20,25 @@ local plugins = {
         --python
         "pyright",
         "mypy",
+        "ruff",
         "black",
         --java
         "jdtls",
         --web dev
         "typescript-language-server",
         "tailwindcss-language-server",
+        "css-lsp",
+        "css-variables-language-server",
+        "cssmodules-language-server",
         "eslint-lsp",
         "prettierd",
+        --lua
+        "stylua",
+        --shell scripting
+        "shfmt",
       },
       automatic_installation = true,
-    }
+    },
   },
   {
     "windwp/nvim-ts-autotag",
@@ -39,18 +47,18 @@ local plugins = {
       "javascript",
       "javascriptreact",
       "typescript",
-      "typescriptreact"
+      "typescriptreact",
     },
     config = function()
-      require("nvim-ts-autotag").setup({
+      require("nvim-ts-autotag").setup {
         opts = {
           -- Defaults
-          enable_close = true,    -- Auto close tags
-          enable_rename = true,   -- Auto rename pairs of tags
-          enable_close_on_slash = false -- Auto close on trailing </
-        }
-      })
-    end
+          enable_close = true,           -- Auto close tags
+          enable_rename = true,          -- Auto rename pairs of tags
+          enable_close_on_slash = false, -- Auto close on trailing </
+        },
+      }
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -67,7 +75,35 @@ local plugins = {
         "java",
       }
       return opts
-    end
+    end,
+  },
+  {
+    "goolord/alpha-nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      local alpha = require "alpha"
+      local dashboard = require "alpha.themes.startify"
+
+      dashboard.section.header.val = {
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                     ]],
+        [[       ████ ██████           █████      ██                     ]],
+        [[      ███████████             █████                             ]],
+        [[      █████████ ███████████████████ ███   ███████████   ]],
+        [[     █████████  ███    █████████████ █████ ██████████████   ]],
+        [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
+        [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
+        [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+        [[                                                                       ]],
+      }
+
+      alpha.setup(dashboard.opts)
+    end,
   },
 }
 

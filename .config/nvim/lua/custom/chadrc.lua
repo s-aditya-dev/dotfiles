@@ -2,14 +2,13 @@
 local M = {}
 
 M.ui = {
-    theme = 'catppuccin',  -- Default theme
-    theme_toggle = {      -- Toggle themes
-        'tokyodark',
-        'catppuccin',
-    },
+  theme = "catppuccin", -- Default theme
+  theme_toggle = {      -- Toggle themes
+    "tokyodark",
+    "catppuccin",
+  },
 }
 
 M.plugins = "custom.plugins"
 
 return M
-
