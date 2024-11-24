@@ -84,7 +84,8 @@ fi'
 
 # Aliases
 alias ls='ls --color'
-alias vim='nvim'
+# alias vim='nvim'
+alias vim="nvim -u ~/dotfiles/.config/nvim\ main/init.lua"
 alias c='clear'
 alias cat='${bat} --theme="${theme}"'
 alias bat='${bat} --theme="${theme}"'
