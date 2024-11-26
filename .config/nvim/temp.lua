@@ -1,87 +1,38 @@
-local plugins = {
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
-    end,
-  },
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        --python
-        "pyright",
-        "mypy",
-        "ruff",
-        "black",
-        --web dev
-        "typescript-language-server",
-        "tailwindcss-language-server",
-        "eslint-lsp",
-        "prettierd",
-        --lua
-        "stylua",
-        --shell scripting
-        "shfmt",
-      },
-    },
-    {
-      "nvimtools/none-ls.nvim",
-      event = "VeryLazy",
-      opts = function()
-        return require "custom.configs.null-ls"
-      end,
-    },
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    ft = {
-      "html",
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-    },
-    config = function()
-      require("nvim-ts-autotag").setup {
-        opts = {
-          -- Defaults
-          enable_close = true,           -- Auto close tags
-          enable_rename = true,          -- Auto rename pairs of tags
-          enable_close_on_slash = false, -- Auto close on trailing </
-        },
-      }
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function()
-      local opts = require "plugins.configs.treesitter"
-      opts.ensure_installed = {
-        "lua",
-        "html",
-        "javascript",
-        "typescript",
-        "tsx",
-        "css",
-        "python",
-        "java",
-      }
-      return opts
-    end,
-  },
-  {
-    "stevearc/oil.nvim",
-    config = function()
-      local oil = require "oil"
-      oil.setup {
-        keymaps = {
-          ["<Esc>"] = { callback = "actions.close", mode = "n" },
-        },
-      }
-    end,
-  },
-}
+function M.config(_, opts)
+  -- Load mappings from mappings.lua
+  local ok, mappings = pcall(require, "lua.mappings")
+  if not ok or type(mappings) ~= "table" then
+    vim.notify(
+      "Error loading mappings from lua.keymaps. Ensure the file exists and is formatted correctly.",
+      vim.log.levels.ERROR
+    )
+    return
+  end
 
-return plugins
+  opts.keymaps = opts.keymaps or {}
+
+  -- Convert mappings to cheatsheet format
+  for category, modes in pairs(mappings) do
+    local category_keymaps = {}
+    for _, mapping_table in pairs(modes) do
+      for key, map in pairs(mapping_table) do
+        table.insert(category_keymaps, { map[2], key })
+      end
+    end
+    opts.keymaps[category] = category_keymaps
+  end
+
+  -- Setup the cheatsheet plugin
+  local ok_nvcheatsheet, nvcheatsheet = pcall(require, "nvcheatsheet")
+  if not ok_nvcheatsheet then
+    vim.notify("nvcheatsheet plugin not found. Please install it.", vim.log.levels.ERROR)
+    return
+  end
+  nvcheatsheet.setup(opts)
+
+  -- Apply the highlights
+  local highlights = M.highlight(customPalette)
+  for group, color in pairs(highlights) do
+    vim.api.nvim_set_hl(0, group, color)
+  end
+end

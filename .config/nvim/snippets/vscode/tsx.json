@@ -1,0 +1,70 @@
+{
+  "reactFunctionalComponent": {
+    "prefix": "rfc",
+    "body": [
+      "const $1: React.FC = () => {",
+      "  return (",
+      "    <div>",
+      "      $2",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "export default $1;"
+    ],
+    "description": "Create a React functional component"
+  },
+  "reactComponentWithProps": {
+    "prefix": "rfcprops",
+    "body": [
+      "interface $1Props {",
+      "  $2: $3;",
+      "}",
+      "",
+      "const $1: React.FC<$1Props> = ({ $2 }) => {",
+      "  return (",
+      "    <div>",
+      "      $4",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "export default $1;"
+    ],
+    "description": "React functional component with TypeScript props"
+  },
+  "reactState": {
+    "prefix": "usestate",
+    "body": [
+      "const [$1, set$1] = useState<$2>($3);"
+    ],
+    "description": "React useState hook with TypeScript"
+  },
+  "reactEffect": {
+    "prefix": "useeffect",
+    "body": [
+      "useEffect(() => {",
+      "  $1",
+      "}, [$2]);"
+    ],
+    "description": "React useEffect hook"
+  },
+  "reactFragment": {
+    "prefix": "fragment",
+    "body": [
+      "<React.Fragment>",
+      "  $1",
+      "</React.Fragment>"
+    ],
+    "description": "React Fragment"
+  },
+  "reactFragmentShort": {
+    "prefix": "frag",
+    "body": [
+      "<>",
+      "  $1",
+      "</>"
+    ],
+    "description": "React shorthand Fragment"
+  }
+}

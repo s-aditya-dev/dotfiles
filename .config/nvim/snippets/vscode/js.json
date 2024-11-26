@@ -1,0 +1,27 @@
+{
+  "consoleLog": {
+    "prefix": "clog",
+    "body": [
+      "console.log('$1');"
+    ],
+    "description": "Log a message to the console"
+  },
+  "functionSnippet": {
+    "prefix": "func",
+    "body": [
+      "function $1($2) {",
+      "  $3",
+      "}"
+    ],
+    "description": "Create a JavaScript function"
+  },
+  "arrowFunction": {
+    "prefix": "afunc",
+    "body": [
+      "const $1 = ($2) => {",
+      "  $3",
+      "};"
+    ],
+    "description": "Create an arrow function"
+  }
+}
