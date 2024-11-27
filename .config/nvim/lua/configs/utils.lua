@@ -27,4 +27,16 @@ M.load_keybindings = function(keybindings)
   end
 end
 
+M.load_dir = function(dir)
+  local modules = {}
+  local base_dir = vim.fn.stdpath("config") .. "/lua/" .. dir:gsub("%.", "/")
+  for file in io.popen('ls "' .. base_dir .. '"'):lines() do
+    if file:match("%.lua$") then
+      local module_name = dir .. "." .. file:gsub("%.lua$", "")
+      table.insert(modules, require(module_name))
+    end
+  end
+  return modules
+end
+
 return M

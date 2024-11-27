@@ -5,22 +5,68 @@ local base = require("nvchad.configs.lspconfig")
 local lspconfig = require("lspconfig")
 
 -- setup server function
-local function setup_server(server_name, config)
+local function setup_server(server_name, filetype, config)
   lspconfig[server_name].setup(vim.tbl_extend("force", {
     on_attach = base.on_attach,
     on_init = base.on_init,
     capabilities = base.capabilities,
+    filetype = filetype,
   }, config or {}))
 end
 
-lspconfig.servers = { "eslint", "tailwindcss", "html", "cssls", "jsonls", "lua_ls", "ts_ls", "pyright" }
+lspconfig.servers = {
+  "eslint",
+  "tailwindcss",
+  "html",
+  "cssls",
+  "jsonls",
+  "lua_ls",
+  "ts_ls",
+  "pyright",
+}
 
 -- Default Servers
-local default_servers = { "eslint", "tailwindcss" }
+local default_servers = {
+  {
+    name = "eslint",
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+  },
+  {
+    name = "tailwindcss",
+    filetypes = {
+      "html",
+      -- "css",
+      "javascript",
+      "javascriptreact",
+      "typescriptreact",
+    },
+  },
+  {
+    name = "lua_ls",
+    filetypes = { "lua" },
+  },
+  {
+    name = "html",
+    filetypes = { "html" },
+  },
+  {
+    name = "cssls",
+    filetypes = { "css", "scss" },
+  },
+  {
+    name = "jsonls",
+    filetypes = { "json" },
+  },
+}
 
--- lsps with default config
+-- Setup default servers
 for _, server in ipairs(default_servers) do
-  setup_server(server)
+  setup_server(server.name, server.filetypes)
 end
 
 -- TypeScript-specific config
@@ -32,7 +78,7 @@ local function ts_organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
-setup_server("ts_ls", {
+setup_server("ts_ls", { "typescript", "typescriptreact" }, {
   init_options = {
     preferences = {
       disableSuggestions = true, --this disables the suggestions for ts
@@ -53,9 +99,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-setup_server("cssls", { filetype = { "css", "scss" } })
-setup_server("html", { filetype = { "html" } })
-setup_server("jsonls", { filetype = { "json" } })
 -- Pyright with specific configuration
 setup_server("pyright", {
   filetype = { "python" },

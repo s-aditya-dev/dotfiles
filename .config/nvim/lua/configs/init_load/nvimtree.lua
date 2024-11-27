@@ -45,7 +45,7 @@ nvimtree.setup({
         relative_path = parts[1] .. "/" .. parts[2] .. "/.../" .. parts[#parts]
       end
 
-      return "  " .. relative_path
+      return "  " .. relative_path
     end,
 
     highlight_git = true,

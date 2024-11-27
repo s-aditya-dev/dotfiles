@@ -16,6 +16,21 @@ local options = {
   },
 
   formatters = {
+    -- Lua
+    stylua = {
+      prepend_args = {
+        "--column-width",
+        "80",
+        "--line-endings",
+        "Unix",
+        "--indent-type",
+        "Spaces",
+        "--indent-width",
+        "2",
+        "--quote-style",
+        "AutoPreferDouble",
+      },
+    },
     -- Python
     black = {
       prepend_args = {
