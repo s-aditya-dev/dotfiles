@@ -5,17 +5,17 @@ local base = require("nvchad.configs.lspconfig")
 local lspconfig = require("lspconfig")
 
 -- setup server function
-local function setup_server(server_name, filetype, config)
+local function setup_server(server_name, filetypes, config)
   lspconfig[server_name].setup(vim.tbl_extend("force", {
     on_attach = base.on_attach,
     on_init = base.on_init,
     capabilities = base.capabilities,
-    filetype = filetype,
+    filetypes = filetypes,
   }, config or {}))
 end
 
 lspconfig.servers = {
-  "eslint",
+  -- "eslint",
   "tailwindcss",
   "html",
   "cssls",
@@ -27,28 +27,24 @@ lspconfig.servers = {
 
 -- Default Servers
 local default_servers = {
-  {
-    name = "eslint",
-    filetypes = {
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-    },
-  },
+  -- {
+  --   name = "eslint",
+  --   filetypes = {
+  --     "javascript",
+  --     "javascriptreact",
+  --     "typescript",
+  --     "typescriptreact",
+  --   },
+  -- },
   {
     name = "tailwindcss",
     filetypes = {
       "html",
-      -- "css",
+      "css",
       "javascript",
       "javascriptreact",
       "typescriptreact",
     },
-  },
-  {
-    name = "lua_ls",
-    filetypes = { "lua" },
   },
   {
     name = "html",
@@ -92,16 +88,8 @@ setup_server("ts_ls", { "typescript", "typescriptreact" }, {
   },
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.ts,*.tsx,*js,*jsx",
-  callback = function()
-    ts_organize_imports()
-  end,
-})
-
 -- Pyright with specific configuration
-setup_server("pyright", {
-  filetype = { "python" },
+setup_server("pyright", { "python" }, {
   settings = {
     python = {
       analysis = {

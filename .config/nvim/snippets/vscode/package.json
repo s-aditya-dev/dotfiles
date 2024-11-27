@@ -7,13 +7,12 @@
         "path": "./lua.json"
       },
       {
-        "language": [
-          "javascript",
-          "javascriptreact",
-          "typescript",
-          "typescriptreact"
-        ],
+        "language": "javascript",
         "path": "./js.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./ts.json"
       },
       {
         "language": "typescriptreact",
