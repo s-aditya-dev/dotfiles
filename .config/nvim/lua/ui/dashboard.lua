@@ -2,7 +2,7 @@ local asciiArt = require("ui.ascii-art")
 
 local M = {
   load_on_startup = true,
-  header = asciiArt.hydra,
+  header = asciiArt.cloud,
   buttons = {
     { txt = "  New File", keys = "Spc b", cmd = ":enew" },
     {

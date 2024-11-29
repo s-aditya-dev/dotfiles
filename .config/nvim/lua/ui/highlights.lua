@@ -14,7 +14,7 @@ M.override = {
   IncSearch = { fg = "black", bg = "red" },
   CurSearch = { fg = "black", bg = "blue" },
   Substitute = { fg = "black", bg = "green" },
-  NvDashAscii = { bg = "NONE", fg = "red" },
+  NvDashAscii = { bg = "NONE", fg = "#FFDC73" },
   NvDashButtons = { bg = "NONE" },
   NvChAsciiHeader = { fg = "red" },
   FoldColumn = { bg = "NONE" },

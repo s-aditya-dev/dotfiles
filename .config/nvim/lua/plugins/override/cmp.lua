@@ -91,7 +91,8 @@ return {
       -- },
       window = {
         completion = {
-          border = "rounded",
+          -- border = "rounded",
+          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
         },
         documentation = {
           border = "rounded",
