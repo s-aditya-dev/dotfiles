@@ -59,10 +59,13 @@ M.General = {
 -- Comment Keybindings
 M.Comment = {
   n = {
-    ["<leader>/"] = { "", "Toggle line comment", remap = true },
-    ["<C-/>"] = { "", "Toggle block comment" },
+    ["<leader>/"] = { "gcc", "Toggle line comment" },
+    ["<C-/>"] = { "gbc", "Toggle block comment", { remap = true } },
   },
 }
+
+-- map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+-- map("n", "<C-/>", "gbc", { desc = "toggle comment", remap = true })
 
 M.Minty = {
   n = {
@@ -89,7 +92,7 @@ M.NvimTree = {
   },
 }
 
-M.tabufline = {
+M.Tabufline = {
 
   n = {
     ["<leader>b"] = { "<cmd>enew<CR>", "New buffer" },
@@ -119,29 +122,51 @@ M.tabufline = {
   },
 }
 
-M.comment = {
-  -- toggle comment in both modes
-  n = {
-    ["<leader>/"] = {
-      "",
-      "Toggle comment",
+M.Terminal = {
+  t = {
+    ["<C-x>"] = { "<C-\\><C-N>", "terminal escape terminal mode" },
+    ["<C-S-x>"] = {
+      "<C-\\><C-N>:q!<CR>",
+      "Terminal: Escape terminal mode and close",
     },
   },
-
-  v = {
-    ["<leader>/"] = {
-      "",
-      "Toggle comment",
+  n = {
+    ["<leader>v"] = {
+      function()
+        require("nvchad.term").new({ pos = "vsp" })
+      end,
+      "terminal new vertical term",
     },
-
-    ["<C-/>"] = {
-      "",
-      "Toggle block comment",
+    ["<leader>h"] = {
+      function()
+        require("nvchad.term").new({ pos = "sp" })
+      end,
+      "terminal new horizontal term",
+    },
+  },
+  [{ "t", "n" }] = {
+    ["<A-i>"] = {
+      function()
+        require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
+      end,
+      "terminal toggleable floating term",
+    },
+    ["<A-v>"] = {
+      function()
+        require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm" })
+      end,
+      "terminal toggleable vertical term",
+    },
+    ["<A-h>"] = {
+      function()
+        require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm" })
+      end,
+      "terminal toggleable horizontal term",
     },
   },
 }
 
-M.telescope = {
+M.Telescope = {
 
   n = {
     -- find
@@ -168,18 +193,19 @@ M.telescope = {
 
     -- theme switcher
     ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
-    ["<leader>vth"] = {
+
+    --[[ ["<leader>vth"] = {
       function()
         require("nvchad.themes").open()
       end,
       "New Nvchad themes selector",
-    },
+    }, ]]
 
     ["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
   },
 }
 
-M.lspconfig = {
+M.LspConfig = {
 
   n = {
     ["gD"] = {
@@ -305,7 +331,7 @@ M.lspconfig = {
   },
 }
 
-M.whichkey = {
+M.WhichKey = {
 
   n = {
     ["<leader>wK"] = {
@@ -333,7 +359,7 @@ M.CodeSnap = {
   },
 }
 
-M.gitsigns = {
+M.GitSigns = {
 
   n = {
     -- Navigation through hunks

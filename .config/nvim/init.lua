@@ -36,12 +36,4 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
-require("options")
-require("nvchad.autocmds")
-local utils = require("configs.utils")
-utils.load_dir("configs.init_load")
-
-vim.schedule(function()
-  utils.load_keybindings(require("mappings"))
-  require("cmd-mappings")
-end)
+require("configs.utils").load_config()

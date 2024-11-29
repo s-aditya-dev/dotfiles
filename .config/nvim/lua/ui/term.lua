@@ -1,6 +1,6 @@
 local M = {
   float = {
-    border = "rounded",
+    border = "single",
   },
 }
 

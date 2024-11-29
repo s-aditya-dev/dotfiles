@@ -1,5 +1,14 @@
 local M = {}
 
+M.load_config = function()
+  M.load_keybindings(require("mappings"))
+  require("cmd-mappings")
+  require("options")
+  require("nvchad.autocmds")
+  M.load_dir("configs.init_load")
+  require("incline").disable()
+end
+
 M.load_keybindings = function(keybindings)
   for _, modeTable in pairs(keybindings) do
     if type(modeTable) == "table" then
