@@ -21,10 +21,14 @@ local M = {
       },
       -- Other ZenMode configurations if needed
       on_open = function()
+        vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
         gitsigns.toggle_signs(false)
         incline.enable()
       end,
       on_close = function()
+        vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
         gitsigns.toggle_signs(true)
         incline.disable()
       end,

@@ -34,7 +34,7 @@ local default_servers = {
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact",
+    -- "typescriptreact",
   },
   tailwindcss = {
     "html",
