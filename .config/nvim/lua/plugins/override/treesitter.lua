@@ -15,6 +15,7 @@ local M = {
         "yaml",
         "html",
         "javascript",
+        "json",
         "typescript",
         "tsx",
         "css",

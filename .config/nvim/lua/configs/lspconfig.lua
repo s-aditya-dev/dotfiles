@@ -25,46 +25,33 @@ lspconfig.servers = {
   "lua_ls",
   "ts_ls",
   "pyright",
+  "sqlls",
 }
 
 -- Default Servers
 local default_servers = {
-  {
-    name = "eslint",
-    filetypes = {
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-    },
+  eslint = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
   },
-  {
-    name = "tailwindcss",
-    filetypes = {
-      "html",
-      "css",
-      "javascript",
-      "javascriptreact",
-      "typescriptreact",
-    },
+  tailwindcss = {
+    "html",
+    "css",
+    "javascript",
+    "javascriptreact",
+    "typescriptreact",
   },
-  {
-    name = "html",
-    filetypes = { "html" },
-  },
-  {
-    name = "cssls",
-    filetypes = { "css", "scss" },
-  },
-  {
-    name = "jsonls",
-    filetypes = { "json" },
-  },
+  html = { "html" },
+  cssls = { "css", "scss" },
+  jsonls = { "json" },
+  sqlls = nil,
 }
 
 -- Setup default servers
-for _, server in ipairs(default_servers) do
-  setup_server(server.name, server.filetypes)
+for server, filetypes in pairs(default_servers) do
+  setup_server(server, filetypes or "-")
 end
 
 --lua specific config
@@ -122,4 +109,3 @@ setup_server("pyright", { "python" }, {
     },
   },
 })
-

@@ -65,7 +65,7 @@ end
 
 local M = {
   "b0o/incline.nvim",
-  event = "BufReadPre",
+  event = "VeryLazy",
   config = function()
     require("incline").setup({
       window = {
@@ -76,7 +76,7 @@ local M = {
         local primary_color = "#cba6f7"
         local secondary_color = "#2d2c3c"
         local label = "ZenMode"
-        local icon = ""
+        local icon = ""
         local style = getStyle()
 
         return wrap_status(label, icon, primary_color, secondary_color, style)

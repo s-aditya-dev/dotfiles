@@ -2,7 +2,7 @@
 local M = {
   "folke/zen-mode.nvim",
   event = "VeryLazy",
-  dependencies = { "folke/twilight.nvim" },
+  -- dependencies = { "folke/twilight.nvim" },
   cmd = "ZenMode",
   config = function()
     local zen_mode = require("zen-mode")
@@ -10,14 +10,21 @@ local M = {
     local incline = require("incline")
 
     zen_mode.setup({
+      window = {
+        options = {
+          number = false, -- disable number column
+          relativenumber = false, -- disable relative numbers
+        },
+      },
+      plugins = {
+        twilight = { enable = false },
+      },
       -- Other ZenMode configurations if needed
       on_open = function()
-        -- Disable gitsigns
         gitsigns.toggle_signs(false)
         incline.enable()
       end,
       on_close = function()
-        -- Re-enable gitsigns
         gitsigns.toggle_signs(true)
         incline.disable()
       end,
