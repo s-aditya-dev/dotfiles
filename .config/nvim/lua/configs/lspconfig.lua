@@ -11,8 +11,7 @@ local function setup_server(server_name, filetypes, config)
     on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
-    filetypes = filetypes ~= "-" and filetypes or nil,
-    -- filetypes = filetypes,
+    filetypes = filetypes,
   }, config or {}))
 end
 
@@ -34,7 +33,7 @@ local default_servers = {
     "javascript",
     "javascriptreact",
     "typescript",
-    -- "typescriptreact",
+    "typescriptreact",
   },
   tailwindcss = {
     "html",
@@ -51,7 +50,7 @@ local default_servers = {
 
 -- Setup default servers
 for server, filetypes in pairs(default_servers) do
-  setup_server(server, filetypes or "-")
+  setup_server(server, filetypes)
 end
 
 --lua specific config
