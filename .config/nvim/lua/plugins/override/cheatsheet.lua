@@ -1,6 +1,6 @@
 local customPalette = require("ui.palette")
 
-local M = { "smartinellimarco/nvcheatsheet.nvim" }
+local M = { "s-aditya-dev/nvcheatsheet.nvim" }
 
 M.opts = {
   -- Default header

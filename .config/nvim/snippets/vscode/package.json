@@ -7,6 +7,10 @@
         "path": "./lua.json"
       },
       {
+        "language": "html",
+        "path": "./html.json"
+      },
+      {
         "language": "javascript",
         "path": "./js.json"
       },

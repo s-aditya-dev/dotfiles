@@ -1,16 +1,22 @@
 -- load defaults i.e lua_lsp
-local on_attach = require("nvchad.configs.lspconfig").on_attach
-local on_init = require("nvchad.configs.lspconfig").on_init
-local capabilities = require("nvchad.configs.lspconfig").capabilities
+local base = require("nvchad.configs.lspconfig")
 
 local lspconfig = require("lspconfig")
 
 -- setup server function
-local function setup_server(server_name, filetypes, config)
+local function setup_server(server_name, config)
   lspconfig[server_name].setup(vim.tbl_extend("force", {
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
+    on_attach = base.on_attach,
+    on_init = base.on_init,
+    capabilities = base.capabilities,
+  }, config or {}))
+end
+
+local function setup_server_with_ft(server_name, filetypes, config)
+  lspconfig[server_name].setup(vim.tbl_extend("force", {
+    on_attach = base.on_attach,
+    on_init = base.on_init,
+    capabilities = base.capabilities,
     filetypes = filetypes,
   }, config or {}))
 end
@@ -32,8 +38,8 @@ local default_servers = {
   eslint = {
     "javascript",
     "javascriptreact",
-    "typescript",
-    "typescriptreact",
+    -- "typescript",
+    -- "typescriptreact",
   },
   tailwindcss = {
     "html",
@@ -50,11 +56,15 @@ local default_servers = {
 
 -- Setup default servers
 for server, filetypes in pairs(default_servers) do
-  setup_server(server, filetypes)
+  if filetypes and #filetypes > 0 then
+    setup_server_with_ft(server, filetypes)
+  else
+    setup_server(server)
+  end
 end
 
 --lua specific config
-setup_server("lua_ls", { "lua" }, {
+setup_server_with_ft("lua_ls", { "lua" }, {
   settings = {
     Lua = {
       diagnostics = {
@@ -84,7 +94,7 @@ local function ts_organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
-setup_server("ts_ls", { "typescript", "typescriptreact" }, {
+setup_server_with_ft("ts_ls", { "typescript", "typescriptreact" }, {
   init_options = {
     preferences = {
       disableSuggestions = true, --this disables the suggestions for ts
@@ -99,7 +109,7 @@ setup_server("ts_ls", { "typescript", "typescriptreact" }, {
 })
 
 -- Pyright with specific configuration
-setup_server("pyright", { "python" }, {
+setup_server_with_ft("pyright", { "python" }, {
   settings = {
     python = {
       analysis = {

@@ -81,14 +81,6 @@ return {
 
     ---@type cmp.ConfigSchema
     local custom_opts = {
-      -- mapping = {
-      --   ["<Tab>"] = function(fallback)
-      --     fallback()
-      --   end,
-      --   ["<S-Tab>"] = function(fallback)
-      --     fallback()
-      --   end,
-      -- },
       window = {
         completion = {
           -- border = "rounded",

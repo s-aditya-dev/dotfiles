@@ -40,6 +40,18 @@ M.General = {
     ["<C-S-k>"] = { "yyP", "Copy line above" },
     ["<C-S-j>"] = { "yyp", "Copy line below" },
 
+    -- Markdown toggle
+    ["<leader>md"] = {
+      "<cmd>lua require('render-markdown').toggle()<CR>",
+      "Markdown toggle",
+    },
+
+    --Timer
+    ["<leader>tm"] = { "<cmd>TimerlyToggle<CR>", "Toggle timer" },
+
+    --ShowKeys
+    ["<leader>sk"] = { "<cmd>ShowkeysToggle<CR>", "Toggle show key" },
+
     --Others
     ["<leader>ch"] = {
       function()
@@ -64,8 +76,25 @@ M.Comment = {
   },
 }
 
--- map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
--- map("n", "<C-/>", "gbc", { desc = "toggle comment", remap = true })
+M.Menu = {
+  n = {
+    ["<C-t>"] = {
+      function()
+        require("menu").open("default")
+      end,
+      "Open menu",
+    },
+    ["<RightMouse>"] = {
+      function()
+        vim.cmd.exec('"normal! \\<RightMouse>"')
+
+        local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+        require("menu").open(options, { mouse = true })
+      end,
+      "Open menu using mouse",
+    },
+  },
+}
 
 M.Minty = {
   n = {
