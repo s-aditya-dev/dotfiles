@@ -25,3 +25,9 @@ map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 map("n", "<C-/>", "gbc", { desc = "toggle comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 map("v", "<C-/>", "gb", { desc = "toggle comment", remap = true })
+
+map("v", "<leader>rc", function()
+  require("refactoring").select_refactor({
+    show_success_message = true,
+  })
+end, { desc = "Refactor code", noremap = true, silent = true, expr = false })

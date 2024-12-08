@@ -7,6 +7,7 @@ return {
       enabled = true,
       view = "cmdline_popup",
       opts = {}, -- global options for the cmdline. See section on views
+      ---@diagnostic disable-next-line: undefined-doc-name
       ---@type table<string, CmdlineFormat>
       format = {
         cmdline = { pattern = "^:", icon = "  ", lang = "vim" },

@@ -85,7 +85,7 @@ fi'
 # Aliases
 alias ls='ls --color'
 # alias vim='nvim'
-alias vim="nvim -u ~/dotfiles/.config/nvim\ main/init.lua"
+alias vim="nvim"
 alias c='clear'
 alias cat='${bat} --theme="${theme}"'
 alias bat='${bat} --theme="${theme}"'
@@ -101,3 +101,5 @@ alias l.='eza -a | egrep "^\."'
 # --zsh options are only available in fzf 0.48.0 or later. 
 # source <(fzf --zsh)
 eval "$(zoxide init --cmd cd zsh)"
+
+. "$HOME/.local/bin/env"
