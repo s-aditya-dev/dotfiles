@@ -8,6 +8,10 @@
 # By Aditya
 # -----------------------------------------------------
 
+# Global Exports
+export TERMINAL=kitty
+export EDITOR=nvim
+
 # A path .zsh file that stores the temporary zshrc config for the device
 TempZshConfig="${HOME}/temp.zsh"
 
@@ -65,27 +69,50 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+# Variables
+bat='bat'
+theme='Catppuccin Mocha'
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -A --color=always $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls -A --color=always $realpath'
-
-# Variables
-bat='batcat'
-theme='Catppuccin Mocha'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -F -A --icons --color=always --group-directories-first $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -F -A --icons --color=always --group-directories-first $realpath'
+zstyle ':fzf-tab:complete:nvim:*' fzf-preview '\
+if [[ -d "$realpath" ]]; then \
+  eza -F -A --icons --color=always --group-directories-first "$realpath"; \
+else \
+  '"${bat}"' --theme="'"${theme}"'" --color=always "$realpath"; \
+fi'
 
 # Aliases
 alias ls='ls --color'
-alias vim='nvim'
+# alias vim='nvim'
+alias vim="nvim"
 alias c='clear'
 alias cat='${bat} --theme="${theme}"'
 alias bat='${bat} --theme="${theme}"'
 alias fzf='fzf --preview="${bat} --theme=\"${theme}\" --color=always {}"'
 alias fnvim='nvim $(fzf -m --preview="${bat} --theme=\"${theme}\" --color=always {}")'
+alias ls='eza --icons --color=always --group-directories-first'
+alias ll='eza -alF --icons --color=always --group-directories-first'
+alias la='eza -a --icons --color=always --group-directories-first'
+alias l='eza -F --icons --color=always --group-directories-first'
+alias l.='eza -a | egrep "^\."'
 
 # Shell integrations
 # --zsh options are only available in fzf 0.48.0 or later. 
-# source <(fzf --zsh)
+source <(fzf --zsh)
 eval "$(zoxide init --cmd cd zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# bun completions
+[ -s "/home/aditya/.bun/_bun" ] && source "/home/aditya/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
